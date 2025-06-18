@@ -1,0 +1,32 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: backend
+    container_name: api
+    env_file:
+      - .env
+    expose:
+      - 8000
+    networks:
+      - internal
+    command: uvicorn api:app --host 0.0.0.0 --port 8000
+    working_dir: /app
+    volumes:
+      - ./model:/app
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: frontend
+    container_name: web
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+    networks:
+      - internal
+networks:
+  internal:
+    driver: bridge

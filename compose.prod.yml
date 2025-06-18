@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  api:
+    image: ghcr.io/${GITHUB_REPOSITORY}:main
+    container_name: api
+    env_file:
+      - .env
+    expose:
+      - 8000
+    networks:
+      - internal
+    command: uvicorn api:app --host 0.0.0.0 --port 8000
+    working_dir: /app
+  web:
+    image: ghcr.io/${GITHUB_REPOSITORY}:main
+    container_name: web
+    expose:
+      - 80
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.web.rule=Host(`uzman.homelab-kaleici.space`)"
+      - "traefik.http.routers.web.tls=true"
+      - "traefik.http.routers.web.tls.certresolver=cloudflare"
+      - "traefik.http.routers.web.entrypoints=websecure"
+      - "traefik.http.services.web.loadbalancer.server.port=80"
+    depends_on:
+      - api
+    networks:
+      - internal
+      - traefik-public
+networks:
+  traefik-public:
+    external: true
+  internal:
+    driver: bridge

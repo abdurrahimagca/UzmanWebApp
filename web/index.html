@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Brain Tumor Detection</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Brain Tumor Detection</h1>
+        <div class="upload-section">
+            <input type="file" id="imageInput" accept="image/*">
+            <button id="predictBtn">Predict</button>
+            <button id="randomBtn">Get Random Test Image</button>
+        </div>
+        <div class="preview-section">
+            <h2>Selected Image</h2>
+            <div class="image-container">
+                <img id="previewImage" alt="Selected image preview">
+            </div>
+        </div>
+        <div class="result-section">
+            <div id="loading" class="hidden">Processing...</div>
+            <div id="result" class="hidden">
+                <h2>Prediction Result</h2>
+                <div class="image-container">
+                    <img id="resultImage" alt="Prediction result">
+                </div>
+                <div id="predictionText" class="prediction-text"></div>
+                <button class="download-btn">Download Result</button>
+            </div>
+            <div id="fullscreen-view" class="hidden">
+                <img id="fullscreenImage" alt="Fullscreen view">
+                <button id="closeFullscreen">×</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

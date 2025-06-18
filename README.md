@@ -1,0 +1,1 @@
+Get model from : https://huggingface.co/agcaabdurrahim/tumor_model/tree/main
